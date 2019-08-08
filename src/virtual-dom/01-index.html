@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>虚拟DOM</title>
+</head>
+<body>
+<style>
+    .content {
+        font-size: 20px;
+        color: green;
+    }
+</style>
+<script src="./04-vdom-diff.js"></script>
+<div id="app">
+</div>
+<script>
+    /*const node = document.createElement('div');
+    let ret = "";
+    for(let key in node) {
+        ret += key + ' ';
+    }
+
+    console.log(ret);*/
+
+
+/*    let vnode = {
+        children: "machel is a pig",
+        childrenFlag: "EMPTY",
+        data: null,
+        flag: "TEXT",
+        tag: null
+    };
+
+    let newVnode = {
+        children: "123",
+        childrenFlag: "EMPTY",
+        data: null,
+        flag: "TEXT",
+        tag: null
+    };*/
+
+    //创建一个虚拟dom
+    let vnode = createElement('div', {id: 'msg'}, [
+        createElement('p', {style: {color: 'blue'}, key: "one"}, '节点1'),
+        createElement('p', {'@click': ()=>{alert('开心')}, key: 'two'}, '节点2'),
+        createElement('p', {class: 'content', key: 'three'}, '节点3'),
+        createElement('p', {key: 'four'}, '节点4')
+    ]);
+
+
+
+    let newVnode = createElement('div', {id: 'msg'}, [
+        createElement('p', {style: {color: 'blue'}, key: "one"}, '节点一'),
+        createElement('p', {class: 'content', key: 'three'}, '节点3'),
+        createElement('p', {'@click': ()=>{alert('开心呀')}, key: 'two'}, '节点2'),
+        createElement('p', {key: 'five'}, '节点5')
+    ]);
+    render(vnode, document.getElementById('app'));
+
+    setTimeout(()=>{
+        render(newVnode, document.getElementById('app'));
+    }, 2000);
+
+    console.log(JSON.stringify(vnode, null, '  '));
+</script>
+</body>
+</html>
